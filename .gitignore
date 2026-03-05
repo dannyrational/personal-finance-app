@@ -1,0 +1,35 @@
+# Avoid your project being littered with annoying .DS_Store files!
+.DS_Store
+.prettierignore
+
+# Local Documentation
+AGENTS.md
+CLAUDE.md
+README-FrontendMentor.md
+README-template.md
+
+# Dependencies
+node_modules
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment files
+.env
+.env.local
+.env.production

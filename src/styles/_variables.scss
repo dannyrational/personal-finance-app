@@ -1,0 +1,41 @@
+// Design System Variables
+// Update these with your custom values as you build
+
+// Colors
+$color-bg-primary: #242424;
+$color-bg-nav: #201f24;
+$color-border: #3e3c47;
+$color-text-primary: rgba(255, 255, 255, 0.87);
+$color-text-secondary: #b3afc3;
+$color-text-white: white;
+$color-accent: #826cb0;
+$color-hover-bg: rgba(255, 255, 255, 0.05);
+$color-active-bg: rgba(130, 108, 176, 0.1);
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+
+// Typography
+$font-family-base: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+$font-size-base: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-2xl: 2rem;
+$line-height-base: 1.5;
+
+// Layout
+$nav-width: 250px;
+$max-content-width: 1200px;
+
+// Breakpoints
+$breakpoint-mobile: 640px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
