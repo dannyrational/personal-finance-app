@@ -1,4 +1,4 @@
-import type { FinanceData } from '../types'
+import type { FinanceData, Transaction } from '../types'
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL
 
@@ -17,5 +17,14 @@ export async function fetchFinanceData(): Promise<FinanceData> {
     throw new Error('Failed to load finance data')
   }
 
-  return response.json()
+  const data: FinanceData = await response.json()
+
+  // Merge with user-created transactions from localStorage
+  const stored = localStorage.getItem('userTransactions')
+  const userTransactions: Transaction[] = stored ? JSON.parse(stored) : []
+
+  return {
+    ...data,
+    transactions: [...userTransactions, ...data.transactions],
+  }
 }

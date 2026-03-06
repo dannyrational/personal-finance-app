@@ -1,5 +1,7 @@
 import { useFinanceData } from '../context/FinanceDataContext'
-import { formatCurrency } from '../utils/dataHelpers'
+import { Link } from 'react-router-dom'
+import TransactionItem from '../components/TransactionItem'
+import { formatCurrency, sortTransactionsByDate } from '../utils/dataHelpers'
 
 export default function Overview() {
   const { data, loading, error } = useFinanceData()
@@ -31,6 +33,8 @@ export default function Overview() {
     )
   }
 
+  const latestTransactions = sortTransactionsByDate(data.transactions).slice(0, 5)
+
   return (
     <div className="page-overview">
       <h1>Overview</h1>
@@ -51,13 +55,25 @@ export default function Overview() {
         </div>
       </section>
 
-      {/* Debug info - remove once components are built */}
-      <section className="debug-info">
-        <p>✓ Data loaded successfully</p>
-        <p>• {data.transactions.length} transactions</p>
-        <p>• {data.budgets.length} budgets</p>
-        <p>• {data.pots.length} pots</p>
-      </section>
+      <div className="overview-grid">
+        <section className="overview-panel overview-transactions" aria-labelledby="overview-transactions-title">
+          <header className="overview-panel__header">
+            <h2 id="overview-transactions-title">Transactions</h2>
+            <Link to="/transactions" className="overview-panel__link">
+              View All <span aria-hidden="true">›</span>
+            </Link>
+          </header>
+
+          <ul className="transaction-list">
+            {latestTransactions.map((transaction) => (
+              <TransactionItem
+                key={`${transaction.name}-${transaction.date}-${transaction.amount}`}
+                transaction={transaction}
+              />
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   )
 }

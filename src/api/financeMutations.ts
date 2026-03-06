@@ -79,20 +79,45 @@ export async function withdrawMoneyFromPot(name: string, amount: number): Promis
   return response.json()
 }
 
-// Transaction mutations
-export async function createTransaction(transaction: Omit<Transaction, 'date'>): Promise<Transaction> {
-  const response = await fetch(`${apiBaseUrl}/api/transactions`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(transaction),
-  })
-  if (!response.ok) throw new Error('Failed to create transaction')
-  return response.json()
+// Transaction mutations (localStorage-based until backend is ready)
+export async function createTransaction(transaction: Omit<Transaction, 'id' | 'date'>): Promise<Transaction> {
+  if (apiBaseUrl) {
+    const response = await fetch(`${apiBaseUrl}/api/transactions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(transaction),
+    })
+    if (!response.ok) throw new Error('Failed to create transaction')
+    return response.json()
+  }
+
+  // localStorage fallback
+  const newTransaction: Transaction = {
+    ...transaction,
+    id: crypto.randomUUID(),
+    date: new Date().toISOString(),
+  }
+
+  const stored = localStorage.getItem('userTransactions')
+  const userTransactions: Transaction[] = stored ? JSON.parse(stored) : []
+  userTransactions.unshift(newTransaction)
+  localStorage.setItem('userTransactions', JSON.stringify(userTransactions))
+
+  return newTransaction
 }
 
 export async function deleteTransaction(transactionId: string): Promise<void> {
-  const response = await fetch(`${apiBaseUrl}/api/transactions/${transactionId}`, {
-    method: 'DELETE',
-  })
-  if (!response.ok) throw new Error('Failed to delete transaction')
+  if (apiBaseUrl) {
+    const response = await fetch(`${apiBaseUrl}/api/transactions/${transactionId}`, {
+      method: 'DELETE',
+    })
+    if (!response.ok) throw new Error('Failed to delete transaction')
+    return
+  }
+
+  // localStorage fallback
+  const stored = localStorage.getItem('userTransactions')
+  const userTransactions: Transaction[] = stored ? JSON.parse(stored) : []
+  const filtered = userTransactions.filter((t) => t.id !== transactionId)
+  localStorage.setItem('userTransactions', JSON.stringify(filtered))
 }

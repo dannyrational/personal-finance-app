@@ -21,6 +21,7 @@ export interface Balance {
 }
 
 export interface Transaction {
+  id?: string // optional - used for user-created transactions
   avatar: string
   name: string
   category: TransactionCategory

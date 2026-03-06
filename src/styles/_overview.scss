@@ -7,6 +7,95 @@
     margin-bottom: $spacing-lg;
   }
 
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+  }
+
+  .overview-panel {
+    background-color: $color-bg-nav;
+    border: 1px solid $color-border;
+    border-radius: 12px;
+    padding: $spacing-md;
+  }
+
+  .overview-panel__header {
+    @include flex-between;
+    margin-bottom: $spacing-sm;
+
+    h2 {
+      font-size: $font-size-xl;
+      color: $color-text-white;
+      margin: 0;
+    }
+  }
+
+  .overview-panel__link {
+    color: $color-text-secondary;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    &:hover,
+    &:focus-visible {
+      color: $color-text-white;
+    }
+  }
+
+  .transaction-list {
+    list-style: none;
+  }
+
+  .transaction-item {
+    @include flex-between;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid $color-border;
+    gap: $spacing-sm;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .transaction-item__left {
+    min-width: 0;
+  }
+
+  .transaction-item__name {
+    color: $color-text-white;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .transaction-item__right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .transaction-item__amount {
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+
+    &.is-income {
+      color: $color-accent;
+    }
+
+    &.is-expense {
+      color: $color-text-white;
+    }
+  }
+
+  .transaction-item__date {
+    color: $color-text-secondary;
+    font-size: 0.9rem;
+  }
+
   .balance-card {
     background-color: $color-bg-nav;
     border: 1px solid $color-border;
